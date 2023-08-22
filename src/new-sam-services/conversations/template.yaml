@@ -1,0 +1,35 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Sam build bug
+
+Resources:
+  LambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub test-sam-build-${AWS::StackName}
+      CodeUri: ./
+      Handler: lambda.handler
+      Runtime: nodejs18.x
+#      Layers:
+#        - !Ref LambdaLayer
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: false
+        Target: "es2020"
+        Format: "esm"
+        OutExtension:
+          - .js=.mjs
+        External: [ "./node_modules/*" ]
+        EntryPoints:
+          - src/new-sam-services/conversations/lambda.js
+
+  LambdaLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      ContentUri: ../layers/layer-one
+      CompatibleRuntimes:
+        - nodejs18.x
+    Metadata:
+      BuildMethod: makefile
+

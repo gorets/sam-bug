@@ -1,0 +1,8 @@
+{
+  "name": "aws-powertools",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "@aws-lambda-powertools/logger": "^1.8.0"
+  }
+}

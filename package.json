@@ -1,0 +1,9 @@
+{
+  "type": "module",
+  "scripts": {
+    "build": "sam build --base-dir ./src -t ./src/new-sam-services/conversations/template.yaml --debug"
+  },
+  "dependencies": {
+    "@aws-lambda-powertools/logger": "^1.12.1"
+  }
+}
